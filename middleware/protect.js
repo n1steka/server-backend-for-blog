@@ -9,7 +9,7 @@ exports.protect = asyncHandler(async (req, res, next) => {
     if (!req.headers.authorization) {
       return res.status(401).json({
         success: false,
-        msg: "Authentication required. Please log in first.",
+        msg: "Эхлээд нэврэнэ  үүү.",
       });
     }
     const token = req.headers.authorization.split(" ")[1];

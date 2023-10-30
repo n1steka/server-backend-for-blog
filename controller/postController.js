@@ -15,6 +15,7 @@ exports.create = asyncHandler(async (req, res, next) => {
     );
     const data = {
       ...req.body,
+      createUser: req.userId,
       photo:
         req.file?.filename === "null" ? "no photo jpg " : req.file?.filename,
     };
