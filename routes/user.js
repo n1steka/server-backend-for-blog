@@ -9,6 +9,7 @@ const {
   updateUser,
   deleteUser,
   userDetail,
+  loginUserPost,
 } = require("../controller/user");
 const router = express.Router();
 
@@ -17,7 +18,7 @@ const router = express.Router();
 router
   .route("/")
   .get(protect, authorize("admin"), getAllUser)
-  .post(upload.single("file"),  createUser);
+  .post(upload.single("file"), createUser);
 router
   .route("/:id")
   .put(upload.single("file"), protect, updateUser) // authorize("admin"), hassan
@@ -25,4 +26,5 @@ router
   .get(userDetail); // authorize("admin"), hassan
 
 router.route("/login").post(Login);
+router.route("/loginUserPost").get(protect, loginUserPost);
 module.exports = router;

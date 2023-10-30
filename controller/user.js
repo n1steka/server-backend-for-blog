@@ -1,4 +1,5 @@
 const User = require("../models/user");
+const Post = require("../models/postModel");
 const asyncHandler = require("../middleware/asyncHandler");
 
 // МОКТА Хэрэглэгч нэмэх хасах
@@ -124,6 +125,18 @@ exports.deleteUser = async function deleteUser(req, res, next) {
       success: true,
       msg: "Ажилттай усгагдлаа",
       data: deletePost,
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
+
+exports.loginUserPost = async function loginUserPost(req, res, next) {
+  try {
+    const data = await postModel.findById(req.userId);
+    return res.status(200).json({
+      success: true,
+      data: data,
     });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
