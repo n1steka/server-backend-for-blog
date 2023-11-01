@@ -8,6 +8,7 @@ dotenv.config({ path: "./config/config.env" });
 //router routes
 const userRoutes = require("./routes/user");
 const postRouter = require("./routes/postRoute.js");
+const commentRouter = require("./routes/commentRoute.js");
 const errorHandler = require("./middleware/error.js");
 connectDB();
 const app = express();
@@ -20,6 +21,7 @@ app.use(errorHandler);
 
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/post", postRouter);
+app.use("/api/v1/comment", commentRouter);
 app.use("/uploads", express.static(__dirname + "/uploads")); // Serve uploaded files
 
 const server = app.listen(
