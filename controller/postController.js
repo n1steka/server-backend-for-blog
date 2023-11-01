@@ -76,3 +76,29 @@ exports.getAll = asyncHandler(async (req, res, next) => {
     res.status(500).json({ success: false, error: error.message });
   }
 });
+
+exports.loginUserPost = async function loginUserPost(req, res, next) {
+  try {
+    if (!mongoose.Types.ObjectId.isValid(req.userId)) {
+      return res.status(400).json({ success: false, error: "Invalid user ID" });
+    }
+    console.log(req.userId, "user id");
+    const posts = await postModel.findById({ createUser: req.userId });
+    if (!posts) {
+      return res.status(404).json({
+        success: false,
+        error: "No posts found for this user.",
+      });
+    }
+    return res.status(200).json({
+      success: true,
+      data: posts,
+    });
+  } catch (error) {
+    console.error("Error in loginUserPost:", error);
+    res.status(500).json({
+      success: false,
+      error: "Internal server error",
+    });
+  }
+};

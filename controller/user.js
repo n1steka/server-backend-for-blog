@@ -131,15 +131,4 @@ exports.deleteUser = async function deleteUser(req, res, next) {
   }
 };
 
-exports.loginUserPost = async function loginUserPost(req, res, next) {
-  try {
-    const data = await postModel.findById(req.userId);
-    return res.status(200).json({
-      success: true,
-      data: data,
-    });
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
-  }
-};
 // Энд дуусаж байгаа шүүү

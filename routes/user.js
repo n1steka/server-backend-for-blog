@@ -9,10 +9,9 @@ const {
   updateUser,
   deleteUser,
   userDetail,
-  loginUserPost,
 } = require("../controller/user");
 const router = express.Router();
-
+const { loginUserPost } = require("../controller/postController");
 //"/api/v1/user"
 
 router
