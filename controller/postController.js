@@ -77,13 +77,9 @@ exports.getAll = asyncHandler(async (req, res, next) => {
   }
 });
 
-exports.loginUserPost = async function loginUserPost(req, res, next) {
+exports.getUserPost = async function loginUserPost(req, res, next) {
   try {
-    if (!mongoose.Types.ObjectId.isValid(req.userId)) {
-      return res.status(400).json({ success: false, error: "Invalid user ID" });
-    }
-    console.log(req.userId, "user id");
-    const posts = await postModel.findById({ createUser: req.userId });
+    const posts = await model.find({ createUser: req.userId });
     if (!posts) {
       return res.status(404).json({
         success: false,

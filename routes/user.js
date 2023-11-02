@@ -11,9 +11,9 @@ const {
   userDetail,
 } = require("../controller/user");
 const router = express.Router();
-const { loginUserPost } = require("../controller/postController");
-//"/api/v1/user"
+const { getUserPost } = require("../controller/postController");
 
+//"/api/v1/user"
 router
   .route("/")
   .get(protect, authorize("admin"), getAllUser)
@@ -23,7 +23,7 @@ router
   .put(upload.single("file"), protect, updateUser) // authorize("admin"), hassan
   .delete(upload.single("file"), protect, deleteUser)
   .get(userDetail); // authorize("admin"), hassan
-
 router.route("/login").post(Login);
-router.route("/loginUserPost").get(protect, loginUserPost);
+router.route("/getUser/post").get(protect, getUserPost);
+
 module.exports = router;

@@ -13,7 +13,7 @@ const postSchema = new Schema({
     default: "no photo.jpg",
   },
   createUser: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "User",
   },
   createdAt: {
