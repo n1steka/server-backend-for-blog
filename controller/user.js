@@ -1,5 +1,4 @@
 const User = require("../models/user");
-const Post = require("../models/postModel");
 const asyncHandler = require("../middleware/asyncHandler");
 
 // МОКТА Хэрэглэгч нэмэх хасах
@@ -86,13 +85,18 @@ exports.Login = asyncHandler(async (req, res, next) => {
 
 exports.updateUser = asyncHandler(async (req, res, next) => {
   try {
-    const fileName = req.file.filename;
+    const oldData = await User.findById(req.params.id);
+    console.log(oldData);
+
+    const updatedData = {
+      ...req.body,
+      photo: req.file?.filename === "null" ? oldData.photo : req.file?.filename,
+    };
     const upDateUserData = await User.findByIdAndUpdate(
       req.params.id,
-      req.body,
+      updatedData,
       {
         new: true,
-        photo: req.fileName,
       }
     );
     return res.status(200).json({

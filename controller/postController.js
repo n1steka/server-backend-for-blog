@@ -1,6 +1,6 @@
 const model = require("../models/postModel");
 const asyncHandler = require("../middleware/asyncHandler");
-
+const userModel = require("../models/user");
 exports.create = asyncHandler(async (req, res, next) => {
   try {
     const fileName = req.file.filename;
@@ -70,8 +70,15 @@ exports.detail = asyncHandler(async (req, res, next) => {
 exports.getAll = asyncHandler(async (req, res, next) => {
   try {
     const total = await model.countDocuments();
-    const text = await model.find();
-    return res.status(200).json({ success: true, total: total, data: text });
+    const text = await model
+      .find()
+      .populate({ path: "createUser", select: "name" });
+    console.log(text);
+    return res.status(200).json({
+      success: true,
+      total: total,
+      data: text,
+    });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
