@@ -16,7 +16,7 @@ const { getUserPost } = require("../controller/postController");
 //"/api/v1/user"
 router
   .route("/")
-  .get(protect, authorize("admin"), getAllUser)
+  .get( getAllUser)
   .post(upload.single("file"), createUser);
 router
   .route("/:id")
