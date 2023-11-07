@@ -1,6 +1,16 @@
 const model = require("../models/commentModel");
 const asyncHandler = require("../middleware/asyncHandler");
 
+exports.getPostComments = asyncHandler(async (req, res, next) => {
+  try {
+    const postId = req.params.postId;
+    const text = await model.findById({ postId: postId });
+    return res.status(200).json({ success: true, data: text });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
 exports.create = asyncHandler(async (req, res, next) => {
   try {
     const user = req.userId;
