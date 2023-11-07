@@ -4,8 +4,8 @@ const asyncHandler = require("../middleware/asyncHandler");
 exports.getPostComments = asyncHandler(async (req, res, next) => {
   try {
     const text = await model.find({ postId: req.params.postId }).populate({
-      path: "postId",
-      select: "title ,  description ",
+      path: "createUser",
+      select: "name , email",
     });
     return res
       .status(200)
