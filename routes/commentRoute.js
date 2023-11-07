@@ -15,6 +15,5 @@ const router = express.Router();
 
 router.route("/").post(upload.single("file"), create).get(getAll);
 router.route("/:id").put(update).delete(findDelete).get(detail);
-router.route("/:postId/comment").get(getPostComments);
 //"/api/v1/moktaText"
 module.exports = router;

@@ -72,7 +72,7 @@ exports.getAll = asyncHandler(async (req, res, next) => {
     const total = await model.countDocuments();
     const text = await model  
       .find()
-      .populate({ path: "createUser", select: "name" });
+      .populate({ path: "createUser", select: "name"  });
     return res.status(200).json({
       success: true,
       total: total,

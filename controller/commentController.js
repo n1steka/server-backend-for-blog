@@ -3,14 +3,19 @@ const asyncHandler = require("../middleware/asyncHandler");
 
 exports.getPostComments = asyncHandler(async (req, res, next) => {
   try {
-    const postId = req.params.postId;
-    const text = await model.findById({ postId: postId });
-    return res.status(200).json({ success: true, data: text });
+    const text = await model.find({ postId: req.params.postId }).populate({
+      path: "postId",
+      select: "title ,  description ",
+    });
+    return res
+      .status(200)
+      .json({ success: true, count: text.length, data: text });
   } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
+    res
+      .status(500)
+      .json({ success: false, count: text.length, error: error.message });
   }
 });
-
 exports.create = asyncHandler(async (req, res, next) => {
   try {
     const user = req.userId;
