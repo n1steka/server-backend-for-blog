@@ -34,7 +34,7 @@ exports.createUser = asyncHandler(async (req, res, next) => {
     }
     const inputData = {
       ...req.body,
-      photo: req.file.filename,
+      photo: req.file.filename === "null" ? "no photo.jpg" : req.file.filename,
     };
     const user = await User.create(inputData);
     const token = user.getJsonWebToken();
