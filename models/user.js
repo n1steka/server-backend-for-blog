@@ -38,6 +38,7 @@ const userSchema = new Schema({
   },
   photo: {
     type: String,
+    default: "no user photo",
   },
   status: {
     type: Boolean,
