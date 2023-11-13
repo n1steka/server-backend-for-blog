@@ -15,6 +15,17 @@ exports.getAllUser = asyncHandler(async (req, res, next) => {
     res.status(500).json({ success: false, error: error.message });
   }
 });
+exports.getLoginUserInfo = asyncHandler(async (req, res, next) => {
+  try {
+    const allText = await User.findById(req.userId);
+    return res.status(200).json({
+      success: true,
+      data: allText,
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
 
 exports.createUser = asyncHandler(async (req, res, next) => {
   try {
