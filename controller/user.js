@@ -98,22 +98,30 @@ exports.Login = asyncHandler(async (req, res, next) => {
 exports.updateUser = asyncHandler(async (req, res, next) => {
   try {
     const oldData = await User.findById(req.params.id);
-    console.log(oldData);
+
+    if (!oldData) {
+      return res.status(404).json({
+        success: false,
+        error: "User not found",
+      });
+    }
 
     const updatedData = {
       ...req.body,
-      photo: req.file?.filename === "null" ? oldData.photo : req.file?.filename,
+      photo: req.file ? req.file.filename : oldData.photo,
     };
-    const upDateUserData = await User.findByIdAndUpdate(
+
+    const updatedUserData = await User.findByIdAndUpdate(
       req.params.id,
       updatedData,
       {
         new: true,
       }
     );
+
     return res.status(200).json({
       success: true,
-      data: upDateUserData,
+      data: updatedUserData,
     });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });

@@ -6,22 +6,18 @@ const { Schema } = mongoose;
 const userSchema = new Schema({
   name: {
     type: String,
-    required: [true, "Username бичнэ үү"],
   },
   phone: {
     type: String,
-    required: [true, "Утасны дугаар заавал бичнэ үү!"],
     unique: [true, "Утасны бүртгэлтэй байна"],
   },
   email: {
     type: String,
-    required: [true, "Email хаяг бичнэ үү"],
     lowercase: true,
     trim: true,
   },
   password: {
     type: String,
-    required: [true, "Нууц үг бичнэ үү"],
     minlength: [6, "Нууц үгийн урт хамгийн багад 6 тэмдэгт байна"],
     select: false,
   },

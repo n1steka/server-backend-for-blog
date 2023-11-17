@@ -18,7 +18,7 @@ exports.protect = asyncHandler(async (req, res, next) => {
     if (!token) {
       return res.status(400).json({
         success: false,
-        msg: "Token is missing.",
+        msg: "Token  хоосон байна ....",
       });
     }
     // Verify the token and extract user information
