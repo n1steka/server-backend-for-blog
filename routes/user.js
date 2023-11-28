@@ -10,6 +10,7 @@ const {
   deleteUser,
   userDetail,
   getLoginUserInfo,
+  forgotPassword
 } = require("../controller/user");
 const router = express.Router();
 const { getUserPost } = require("../controller/postController");
@@ -24,5 +25,7 @@ router
 router.route("/login").post(Login);
 router.route("/loginUserInfo").post(protect, getLoginUserInfo);
 router.route("/getUser/post").get(protect, getUserPost);
+router.route("/forgot-password").get();
+
 
 module.exports = router;
