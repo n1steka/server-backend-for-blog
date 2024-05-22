@@ -22,7 +22,7 @@ app.use(errorHandler);
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/post", postRouter);
 app.use("/api/v1/comment", commentRouter);
-app.use("/uploads", express.static(__dirname + "/uploads")); // Serve uploaded files
+app.use("/uploads", express.static(__dirname + "/uploads"));
 
 const server = app.listen(
   process.env.PORT,

@@ -7,18 +7,21 @@ const userSchema = new Schema({
   name: {
     type: String,
   },
-  phone: {
-    type: String,
-    unique: [true, "Утасны бүртгэлтэй байна"],
-  },
   email: {
     type: String,
-    lowercase: true,
-    trim: true,
   },
+  // phone: {
+  //   type: String,
+  //   required: [true, "Утасны дугаар заавал бичнэ үү!"],
+  //   maxlength: [8, "Утасны дугаар хамгийн ихдээ 8 оронтой байна!"],
+  // },
+  // location: {
+  //   type: String,
+  // },
+
   password: {
     type: String,
-    minlength: [6, "Нууц үгийн урт хамгийн багад 6 тэмдэгт байна"],
+    required: [true, "Нууц үг бичнэ үү"],
     select: false,
   },
   role: {
@@ -30,14 +33,7 @@ const userSchema = new Schema({
   resetPasswordExpire: Date,
   createdAt: {
     type: Date,
-    default: Date.now, // Corrected "defualt" to "default"
-  },
-  photo: {
-    type: String,
-    default: "no user photo",
-  },
-  status: {
-    type: Boolean,
+    default: Date.now,
   },
 });
 
@@ -59,18 +55,14 @@ userSchema.methods.getJsonWebToken = function () {
   );
   return token;
 };
+userSchema.pre("findOneAndUpdate", async function (next) {
+  if (!this._update.password) {
+    return next();
+  }
 
-UserSchema.methods.generatePasswordChangeToken = function () {
-  const resetToken = crypto.randomBytes(20).toString("hex");
-
-  this.resetPasswordToken = crypto
-    .createHash("sha256")
-    .update(resetToken)
-    .digest("hex");
-
-  this.resetPasswordExpire = Date.now() + 10 * 60 * 1000;
-
-  return resetToken;
-};
+  const salt = await bcrypt.genSalt(10);
+  this._update.password = await bcrypt.hash(this._update.password, salt);
+  next();
+});
 
 module.exports = mongoose.model("User", userSchema);
