@@ -8,6 +8,9 @@ const postSchema = new Schema({
   description: {
     type: String,
   },
+  content: {
+    type: String,
+  },
   photo: {
     type: String,
     default: "no photo.jpg",
