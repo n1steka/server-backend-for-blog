@@ -6,14 +6,14 @@ const commentSchema = new Schema({
     type: String,
   },
 
-  createUser : {
+  createUser: {
     type: mongoose.Schema.Types.ObjectId,
-    ref : "User"
+    ref: "User",
   },
-  
-  postId : {
+
+  postId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref : "Post"
+    ref: "Post",
   },
   createdAt: {
     type: Date,

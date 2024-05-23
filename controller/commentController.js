@@ -30,6 +30,12 @@ exports.create = asyncHandler(async (req, res, next) => {
   }
 });
 
+exports.postComment = asyncHandler(async (req, res) => {
+  try {
+    const postId = req.params.postId;
+  } catch (error) {}
+});
+
 exports.update = asyncHandler(async (req, res, next) => {
   try {
     const fileName = req.file.filename;

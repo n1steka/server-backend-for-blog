@@ -9,7 +9,10 @@ const {
   getAll,
 } = require("../controller/postController");
 const router = express.Router();
-const { getPostComments } = require("../controller/commentController");
+const {
+  getPostComments,
+  postComment,
+} = require("../controller/commentController");
 // upload.single("file"),
 
 router.route("/").post(upload.single("file"), protect, create).get(getAll);
