@@ -29,12 +29,9 @@ exports.create = asyncHandler(async (req, res, next) => {
 
 exports.update = asyncHandler(async (req, res, next) => {
   try {
-    const fileName = req.file.filename;
-    console.log(fileName + "********************************");
-
     const updatedData = {
       ...req.body,
-      photo: fileName,
+      photo: req.file?.filename,
     };
 
     const text = await model.findByIdAndUpdate(req.params.id, updatedData, {

@@ -16,7 +16,11 @@ const {
 // upload.single("file"),
 
 router.route("/").post(upload.single("file"), protect, create).get(getAll);
-router.route("/:id").put(update).delete(findDelete).get(detail);
+router
+  .route("/:id")
+  .put(upload.single("file"), update)
+  .delete(findDelete)
+  .get(detail);
 router.route("/:postId/comments").get(getPostComments);
 
 //"/api/v1/moktaText"
