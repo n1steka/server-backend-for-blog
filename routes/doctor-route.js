@@ -14,6 +14,10 @@ const router = express.Router();
 // upload.single("file"),
 
 router.route("/").post(protect, upload.single("file"), create).get(getAll);
-router.route("/:id").put(update).delete(findDelete).get(detail);
+router
+  .route("/:id")
+  .put(protect, upload.single("file"), update)
+  .delete(findDelete)
+  .get(detail);
 //"/api/v1/moktaText"
 module.exports = router;
