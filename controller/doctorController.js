@@ -16,16 +16,26 @@ exports.create = asyncHandler(async (req, res, next) => {
   }
 });
 
-exports.update = asyncHandler(async (req, res, next) => {
+exports.update = asyncHandler(async (req, res) => {
   try {
+    const user = req.userId;
     const updatedData = {
       ...req.body,
-      photo: req.file?.filename,
+      photo: req.file ? req.file.filename : undefined,
+      createUser: user,
     };
 
     const text = await model.findByIdAndUpdate(req.params.id, updatedData, {
       new: true,
+      runValidators: true, // Ensure validation is run on the update
     });
+
+    if (!text) {
+      return res
+        .status(404)
+        .json({ success: false, error: "Document not found" });
+    }
+
     return res.status(200).json({ success: true, data: text });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
